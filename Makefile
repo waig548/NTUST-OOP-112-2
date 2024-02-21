@@ -1,6 +1,6 @@
 DIRS = $(wildcard */)
 DIR_NAMES = $(DIRS:/=)
-ZIP_TARGETS = $(addsuffix /<學號>_<姓名>.zip, $(DIR_NAMES))
+ZIP_TARGETS = $(addsuffix /學號_姓名.zip, $(DIR_NAMES))
 
 debug:
 	@echo $(DIRS)
@@ -12,6 +12,6 @@ clean:
 
 $(ZIP_TARGETS):
 	@echo $@
-	zip -ur $@ $(dir $@) -x '*/.vs/*' '*/x64/*' '*/x86/*'
+	zip -ur $@ $(dir $@) -x '*/.vs/*' '*/x64/*' '*.zip'
 
 zip_projects: $(ZIP_TARGETS)
