@@ -1,4 +1,4 @@
-DIRS = $(wildcard */)
+﻿DIRS = $(wildcard */)
 DIR_NAMES = $(DIRS:/=)
 ZIP_TARGETS = $(addsuffix /學號_姓名.zip, $(DIR_NAMES))
 
@@ -12,6 +12,6 @@ clean:
 
 $(ZIP_TARGETS):
 	@echo $@
-	zip -ur $@ $(dir $@) -x '*/.vs/*' '*/x64/*' '*.zip'
+	cd $(dir $@) && zip -ur $(notdir $@) * -x '*.vs/*' '*x64/*' '*.zip'
 
 zip_projects: $(ZIP_TARGETS)
