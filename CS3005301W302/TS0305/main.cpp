@@ -20,13 +20,10 @@ class Canvas {
         return 0;
     }
     int drawTriangle(const ll w, const ll x, const ll y, const int horizontalDir, const int verticalDir) {
-        ll sideLength = std::llroundl(std::sqrtl(std::powl(w, 2) / 2));
-        if (checkBounds(x, y) || checkBounds(x + horizontalDir * sideLength, y + verticalDir * sideLength))
+        if (checkBounds(x, y) || checkBounds(x + horizontalDir * w, y + verticalDir * w))
             return 1;
-        if (drawLine(x + horizontalDir * sideLength, y, x, y + verticalDir * sideLength))
-            return 1;
-        for (ll i = 0; i < sideLength; i++) {
-            for (ll j = 0; j < sideLength - i; j++) {
+        for (ll i = 0; i < w; i++) {
+            for (ll j = 0; j < w - i; j++) {
                 bg[(y + verticalDir * i) * this->width + (x + horizontalDir * j)] = 'X';
             }
         }
