@@ -7,21 +7,21 @@ size_t levenshteinDistance(const std::string& source, const std::string& target)
         return target.size();
     if (target.empty())
         return source.size();
-    std::queue<size_t> runningSpace;
+    std::queue<size_t> partialDistanceMatrix;
     for (size_t i = 0; i <= target.size(); i++)
-        runningSpace.push(i);
+        partialDistanceMatrix.push(i);
     for (size_t i = 0; i < source.size(); i++) {
-        runningSpace.push(i + 1);
+        partialDistanceMatrix.push(i + 1);
         for (size_t j = 0; j < target.size(); j++) {
-            size_t totalSubsitutionDistance = runningSpace.front() + (source[i] != target[j]);
-            runningSpace.pop();
-            size_t totalDeletionDistance  = runningSpace.front() + 1;
-            size_t totalInsertionDistance = runningSpace.back() + 1;
-            runningSpace.push(std::min(totalSubsitutionDistance, std::min(totalDeletionDistance, totalInsertionDistance)));
+            size_t totalSubsitutionDistance = partialDistanceMatrix.front() + (source[i] != target[j]);
+            partialDistanceMatrix.pop();
+            size_t totalDeletionDistance  = partialDistanceMatrix.front() + 1;
+            size_t totalInsertionDistance = partialDistanceMatrix.back() + 1;
+            partialDistanceMatrix.push(std::min(totalSubsitutionDistance, std::min(totalDeletionDistance, totalInsertionDistance)));
         }
-        runningSpace.pop();
+        partialDistanceMatrix.pop();
     }
-    return runningSpace.back();
+    return partialDistanceMatrix.back();
 }
 
 int main() {

@@ -26,23 +26,21 @@ class BigInteger {
             mag.push_back((*it) + '0');
     }
 
-    static BigInteger add(const BigInteger& lhs, const BigInteger& rhs, bool rectify = false) {
+    static BigInteger add(const BigInteger& lhs, const BigInteger& rhs, bool complement = false) {
         std::vector<int> a = lhs.digits, b = rhs.digits, result;
         size_t           workingLength = std::max(a.size(), b.size());
         a.resize(workingLength, 0);
         b.resize(workingLength, 0);
-        int carry = 0, aSign = lhs.sign ? -1 : 1, bSign = rhs.sign ? -1 : 1;
+        int carry = 0, aModif = lhs.sign ? -1 : 1, bModif = rhs.sign ? -1 : 1;
         for (size_t i = 0; i < workingLength; i++) {
-            int tmp = aSign * a[i] + bSign * b[i] + carry;
+            int tmp = aModif * a[i] + bModif * b[i] + carry;
             carry   = tmp < 0 ? -1 : tmp / 10;
-            int s   = (tmp + 10) % 10;
-            result.push_back(s);
+            result.push_back((tmp + 10) % 10);
         }
-        if (carry < 0 && !rectify) {
-            std::string fill("1");
-            fill.resize(1 + workingLength, '0');
-
-            BigInteger res = add(BigInteger(fill), BigInteger(result, carry < 0), true);
+        if (carry < 0 && !complement) {
+            std::string complementBase("1");
+            complementBase.resize(1 + workingLength, '0');
+            BigInteger res = add(BigInteger(complementBase), BigInteger(result, 1), true);
             result         = res.digits;
 
         } else
@@ -80,18 +78,22 @@ class BigInteger {
     BigInteger operator-(const BigInteger& other) const {
         return add(*this, -other);
     }
+
     BigInteger operator*(const BigInteger& other) const {
         return mul(*this, other);
     }
+
     BigInteger operator-() const {
         return BigInteger(digits, !sign);
     }
+
     std::string toString() const {
         return (sign ? "-" : "") + mag;
     }
 
     BigInteger(): BigInteger("0") {
     }
+
     static BigInteger of(const std::string& numStr) {
         if (isNumber(numStr))
             return BigInteger(numStr);
