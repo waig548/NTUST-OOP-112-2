@@ -2,7 +2,6 @@
 #include <map>
 #include <sstream>
 #include <string>
-#include <typeindex>
 
 class MemoryBlock {
     private:
@@ -32,14 +31,13 @@ class MemoryBlock {
             if (pos == size)
                 throw std::exception();
         } else {
-            size_t   typeSize     = typeSizes.at(type);
+            size_t typeSize     = typeSizes.at(type);
             size_t raw          = std::stoull(value);
             size_t amountToCopy = std::min(size - pos, typeSize);
             memcpy_s(block + pos, amountToCopy, &raw, amountToCopy);
             if (pos + typeSize > size)
                 throw std::exception();
         }
-       
     }
 
     std::string get(int pos, const std::string& type) const {

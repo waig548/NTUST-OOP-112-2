@@ -1,11 +1,10 @@
-#include <vector>
-#include <stdexcept>
 #include <iostream>
-
+#include <stdexcept>
+#include <vector>
 
 class Matrix {
     private:
-    size_t rows, cols;
+    size_t              rows, cols;
     std::vector<double> content;
 
     public:
@@ -13,7 +12,7 @@ class Matrix {
         this->content.resize(rows * cols, 0);
     }
 
-    Matrix(const Matrix& copy): rows(copy.rows),cols(copy.cols) {
+    Matrix(const Matrix& copy): rows(copy.rows), cols(copy.cols) {
         for (auto e: copy.content)
             content.push_back(e);
     }
@@ -22,8 +21,8 @@ class Matrix {
     }
 
     Matrix& operator=(const Matrix& copy) {
-        rows = copy.rows;
-        cols = copy.cols;
+        rows    = copy.rows;
+        cols    = copy.cols;
         content = std::vector<double>();
         for (auto e: copy.content)
             content.push_back(e);
@@ -47,7 +46,7 @@ class Matrix {
         std::vector<double> res;
         for (int i = 0; i < a.rows; i++) {
             for (int j = 0; j < b.cols; j++) {
-                res.push_back(dot(getRow(a, i), getCol(b,j)));
+                res.push_back(dot(getRow(a, i), getCol(b, j)));
             }
         }
         return Matrix(a.rows, b.cols, res);
@@ -81,7 +80,7 @@ class Matrix {
 int main() {
     size_t ar, ac, br, bc;
     std::cin >> ar >> ac >> br >> bc;
-    std::vector<double> aNums(ar*ac), bNums(br*bc);
+    std::vector<double> aNums(ar * ac), bNums(br * bc);
     for (int i = 0; i < aNums.size(); i++) {
         std::cin >> aNums[i];
     }
@@ -102,5 +101,4 @@ int main() {
     } catch (std::invalid_argument e) {
         std::cout << "Matrix multiplication failed." << std::endl;
     }
-    
 }

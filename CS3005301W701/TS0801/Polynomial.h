@@ -38,11 +38,9 @@ class Polynomial {
     int mySize() {
         if (coefs.empty())
             return 0;
-        return coefs.rend() - std::find_if_not(
-                 coefs.rbegin(), coefs.rend(),
-                 [](auto it) {
-                     return it == 0;
-                 });
+        return coefs.rend() - std::find_if_not(coefs.rbegin(), coefs.rend(), [](auto it) {
+                   return it == 0;
+               });
     }
 
     friend static double evaluate(const Polynomial& poly, const double& var) {
@@ -83,10 +81,10 @@ class Polynomial {
 
     friend static Polynomial operator*(const Polynomial& a, const Polynomial& b) {
         std::vector<double> res;
-        res.resize(a.coefs.size()+b.coefs.size()-1);
+        res.resize(a.coefs.size() + b.coefs.size() - 1);
         for (int i = 0; i < b.coefs.size(); i++) {
-            for (int j = 0; j < a.coefs.size();j++)
-                res[i+j] += a.coefs[j]*b.coefs[i];
+            for (int j = 0; j < a.coefs.size(); j++)
+                res[i + j] += a.coefs[j] * b.coefs[i];
         }
         return Polynomial(res);
     }
