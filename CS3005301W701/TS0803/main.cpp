@@ -21,6 +21,7 @@ class MemoryBlock {
     void set(int pos, const std::string& type, const std::string& value) {
         if (pos < 0)
             throw std::exception();
+        bool overflow = (pos + typeSizes.at(type) > size);
         if (type == "String") {
             auto cur = value.begin();
             while (pos < size && cur != value.end()) {
@@ -28,24 +29,23 @@ class MemoryBlock {
                 cur++;
                 pos++;
             }
-            if (pos == size)
-                throw std::exception();
+            overflow |= pos == size;
         } else {
             size_t typeSize     = typeSizes.at(type);
             size_t raw          = std::stoull(value);
             size_t amountToCopy = std::min(size - pos, typeSize);
             memcpy_s(block + pos, amountToCopy, &raw, amountToCopy);
-            if (pos + typeSize > size)
-                throw std::exception();
         }
+        if(overflow)
+            throw std::exception();
     }
 
     std::string get(int pos, const std::string& type) const {
         if (pos < 0)
-            throw std::invalid_argument("");
+            throw std::exception();
+        if(pos + typeSizes.at(type) > size)
+            throw std::exception();
         if (type == "String") {
-            if (pos + typeSizes.at("char") > size)
-                throw std::exception();
             std::string res;
             while (pos < size && block[pos]) {
                 res.push_back(block[pos]);
@@ -54,8 +54,6 @@ class MemoryBlock {
             return res;
         } else {
             size_t typeSize = typeSizes.at(type);
-            if (pos + typeSize > size)
-                throw std::exception();
             unsigned int raw = 0;
             memcpy_s(&raw, typeSize, block + pos, typeSize);
             return std::to_string(raw);
@@ -65,7 +63,7 @@ class MemoryBlock {
     static const std::map<std::string, size_t> typeSizes;
 };
 
-const std::map<std::string, size_t> MemoryBlock::typeSizes{{"char", 1}, {"short", 2}, {"int", 4}, {"String", 0}};
+const std::map<std::string, size_t> MemoryBlock::typeSizes{{"char", 1}, {"short", 2}, {"int", 4}, {"String", 1}};
 
 int main() {
     int N, T;
