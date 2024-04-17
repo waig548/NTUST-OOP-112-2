@@ -16,23 +16,23 @@ class Translator {
     };
     void addTranslationUnit(Unit unit) {
         translationUnits.push_back(unit);
-        equivalenceMap.try_emplace(unit.in, std::set<char>());
-        equivalenceMap[unit.in].insert(unit.out);
+        translatabilityMap.try_emplace(unit.in, std::set<char>());
+        translatabilityMap[unit.in].insert(unit.out);
     }
 
     void addTranslationUnit(const char in, const char out) {
         addTranslationUnit(Unit(in, out));
     }
 
-    void processEquivalence() {
+    void populateTranslatability() {
         bool unstable = true;
         while (unstable) {
             unstable = false;
-            for (auto& p: equivalenceMap) {
+            for (auto& p: translatabilityMap) {
                 auto preSize = p.second.size();
                 for (auto e: p.second) {
-                    if (equivalenceMap.find(e) != equivalenceMap.end()) {
-                        p.second.insert(equivalenceMap[e].begin(), equivalenceMap[e].end());
+                    if (translatabilityMap.find(e) != translatabilityMap.end()) {
+                        p.second.insert(translatabilityMap[e].begin(), translatabilityMap[e].end());
                     }
                 }
                 unstable |= p.second.size() != preSize;
@@ -55,14 +55,14 @@ class Translator {
 
     private:
     std::vector<Unit>              translationUnits;
-    std::map<char, std::set<char>> equivalenceMap;
+    std::map<char, std::set<char>> translatabilityMap;
 
     inline bool translatableTo(char in, char desired) {
         if (in == desired)
             return true;
-        if (equivalenceMap.find(in) == equivalenceMap.end())
+        if (translatabilityMap.find(in) == translatabilityMap.end())
             return false;
-        return equivalenceMap[in].find(desired) != equivalenceMap[in].end();
+        return translatabilityMap[in].find(desired) != translatabilityMap[in].end();
     }
 };
 
@@ -78,7 +78,7 @@ int main() {
             std::cin >> in >> out;
             translator.addTranslationUnit(in, out);
         }
-        translator.processEquivalence();
+        translator.populateTranslatability();
 
         for (int i = 0; i < n; i++) {
             std::string input, desired;
