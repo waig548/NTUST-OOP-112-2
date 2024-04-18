@@ -1,7 +1,7 @@
 #include <iostream>
+#include <string>
 
-#include "password.h"
-#include "user.h"
+#include "Authenticate.h"
 
 int main() {
     Authenticate::inputUserName();
