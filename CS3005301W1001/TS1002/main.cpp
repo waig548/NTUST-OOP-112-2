@@ -31,11 +31,11 @@ inline bool findWord(const std::string& board, const std::string& word, int walk
         return true;
     std::vector<int> nexts;
     std::string      adj;
-    if (lastPos < 0) {
+    if (lastPos < 0)
         adj = board;
-    } else {
+    else
         adj = getAdjacents(board, lastPos, walked);
-    }
+
     auto candidate = std::find(adj.begin(), adj.end(), word[0]);
     while (candidate != adj.end()) {
         nexts.push_back(candidate - adj.begin());
@@ -55,9 +55,6 @@ inline bool findWord(const std::string& board, const std::string& word, int walk
 
 bool isValid(const std::string& board, const std::string& word) {
     if (word.length() < 3 || word.length() > 16)
-        return false;
-    auto res = std::find(board.begin(), board.end(), word[0]);
-    if (res == board.end())
         return false;
     return findWord(board, word, 0, -1);
 }

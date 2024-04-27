@@ -6,16 +6,15 @@
 
 inline void _PrintCombination(const std::vector<int>& arr, int n, int m, const std::vector<int>& keep = std::vector<int>()) {
     if (n < 1 || m < 1) {
-        for (int i = 0; i < keep.size(); i++) {
+        for (int i = 0; i < keep.size(); i++)
             std::cout << (i ? " " : "") << keep[i];
-        }
         std::cout << std::endl;
         return;
     }
     if (n == m) {
-        for (int i = 0; i < keep.size(); i++) {
+        for (int i = 0; i < keep.size(); i++)
             std::cout << (i ? " " : "") << keep[i];
-        }
+
         for (int i = 0; i < arr.size(); i++)
             std::cout << ((i || !keep.empty()) ? " " : "") << arr[i];
         std::cout << std::endl;
