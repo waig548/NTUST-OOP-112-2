@@ -1,10 +1,13 @@
-﻿$ZipExcludes = @('*\.vs\*', '*\x64\*', '*.zip')
+﻿Add-Type -AssemblyName System.IO.Compression.FileSystem
+
+$ZipExcludes = @('*\.vs\*', '*\x64\*', '*.zip')
 $DirExcludes = @('.git')
 $ZipFileName = '學號_姓名.zip'
 
 $DirsToZip = Get-ChildItem -Attributes Directory -Exclude $DirExcludes -Name
 
 $ParentPath = Get-Location
+Get-ChildItem -File -Recurse -Filter $ZipFileName | Remove-Item
 foreach ($Dir in $DirsToZip)
 {
     $FileList = Get-ChildItem $Dir -File -Recurse -Force | where {
@@ -12,7 +15,6 @@ foreach ($Dir in $DirsToZip)
         -not ($ZipExcludes | where {$FN -like $_})
         }
     Write-Output "Archiving $Dir -> $Dir/$ZipFileName"
-    Get-ChildItem -File -Recurse -Filter $ZipFileName | Remove-Item
     Push-Location $Dir
     Try
     {
