@@ -21,9 +21,10 @@ public:
 		//clean();
 	}
 
-	Polynomial(const double* params, int size) : Polynomial(std::vector<double>(params, params + size))
+	Polynomial(const double* params, int size)
 	{
-
+		for (int i = 0; i < size; i++)
+			coef.push_back(params[i]);
 	}
 
 	Polynomial(const Polynomial& other) : Polynomial(other.coef)
