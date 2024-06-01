@@ -11,17 +11,17 @@
 
 #include <vector>
 inline int permutation(int n, int k) {
-	std::vector<int> items;
-	for (int i = 1; i <= n; i++)
-		items.push_back(i);
-	
-	int idx = k-1;
-	while (items.size() > 1)
-	{
-		items.erase(items.begin() + idx);
-		idx += k-1;
-		idx %= items.size();
-	}
+    std::vector<int> items;
+    for (int i = 1; i <= n; i++)
+        items.push_back(i);
+    
+    int idx = k-1;
+    while (items.size() > 1)
+    {
+        items.erase(items.begin() + idx);
+        idx += k-1;
+        idx %= items.size();
+    }
 
-	return items.front();
+    return items.front();
 }
