@@ -1,0 +1,54 @@
+Polynomial p
+term with degree 0 has coefficient 3
+term with degree 1 has coefficient 2
+term with degree 2 has coefficient 1
+Polynomial r
+term with degree 0 has coefficient 1
+term with degree 1 has coefficient 2
+term with degree 2 has coefficient 0
+term with degree 3 has coefficient 3
+Polynomial p
+term with degree 0 has coefficient 3
+term with degree 1 has coefficient 2
+term with degree 2 has coefficient 1
+Polynomial r
+term with degree 0 has coefficient 1
+term with degree 1 has coefficient 2
+term with degree 2 has coefficient 0
+term with degree 3 has coefficient 3
+Polynomial c
+term with degree 0 has coefficient 6
+term with degree 1 has coefficient 5
+term with degree 2 has coefficient 0
+term with degree 3 has coefficient 3
+value of q(2) is 20
+value of p(2) is 11
+value of r(-2) is -27
+value of c(-2) is -28
+size of r*c is 7
+Polynomial p(=r*c) 
+value of (r*c)(-2) is 756
+size of r*23 is 4
+Polynomial p(=r*23) 
+value of (r*23)(-2) is -621
+size of 8*c is 4
+Polynomial p(=8*c) 
+value of (8*c)(-2) is -224
+size of r+c is 4
+Polynomial p(=r+c) 
+value of (r+c)(-2) is -55
+size of r+23 is 4
+Polynomial p(=r+23) 
+value of (r+23)(-2) is -4
+size of 8+c is 4
+Polynomial p(=8+c) 
+value of (8+c)(-2) is -20
+size of r-c is 2
+Polynomial p(=r-c) 
+value of (r-c)(-2) is 1
+size of r-23 is 4
+Polynomial p(=r-23) 
+value of (r-23)(-2) is -50
+size of 8-c is 4
+Polynomial p(=8-c) 
+value of (8-c)(-2) is 36
