@@ -51,7 +51,7 @@ public:
 
     double& operator[](const int& i)
     {
-        while (coef.size() < i)
+        while (coef.size() <= i)
             coef.push_back(0);
         return coef[i];
     }
