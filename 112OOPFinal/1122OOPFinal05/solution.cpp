@@ -320,17 +320,22 @@ public:
     {
         tokenQueue = XMLTokenizer::Tokenize(rawXML);
         pos = 0;
+        IElement *res;
 
         try
         {
-            return parseElement();
+            res = parseElement();
         }
         catch (const std::exception &e)
         {
-            tokenQueue.clear();
-            return nullptr;
+            res = nullptr;
             // throw std::exception((std::string(e.what()) + " at position: " + std::to_string(pos)).c_str());
         }
+
+        for (auto& e : tokenQueue)
+            delete e;
+
+        return res;
     }
 };
 
